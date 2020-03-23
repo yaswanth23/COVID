@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+* {  
+  scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  background-color: #F4F7FC;
+}
+
+.title {
+  margin: 20px;
+  font-weight: 600;
+  font-size: 35px;
+  color: #a3a3a3;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+  transition: 0.8s;
+  box-shadow: 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px rgba(255, 255, 255, 1),
+    inset 0px 0px 4px rgba(255, 255, 255, 0.2),
+    inset 7px 7px 15px rgba(55, 84, 170, 0),
+    inset -7px -7px 20px rgba(255, 255, 255, 0),
+    0px 0px 4px rgba(255, 255, 255, 0);
+    transition: 0.8s;
+}
+
+.header .card .stats {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.number {
+  font-size: 35px;
+  font-weight: 600;
+}
+.factor {
+  color: #a3a3a3;
+}
+
+.active {
+  box-shadow: 2px 3px 5px 0px black;
+}
+
+@media screen and (max-width: 1020px) {
+.card {
+  width: 100%;
+  height: 200px;
+  background: #fff;
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+  transition: 0.8s;
+  box-shadow: 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px rgba(255, 255, 255, 1),
+    inset 0px 0px 4px rgba(255, 255, 255, 0.2),
+    inset 7px 7px 15px rgba(55, 84, 170, 0),
+    inset -7px -7px 20px rgba(255, 255, 255, 0),
+    0px 0px 4px rgba(255, 255, 255, 0);
+    transition: 0.8s;
+}
+}
+
+.footer {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.footer-love-icon {
+  height: 10px;
+  padding-left: 1px;
+  padding-right: 1px;
+  animation: beat .55s infinite alternate;
+}
+@keyframes beat{
+  to { transform: scale(1.4); }
+}
