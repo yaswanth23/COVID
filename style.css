@@ -19,6 +19,13 @@ body {
   font-size: 35px;
   color: #a3a3a3;
 }
+.title1 {
+  margin: 20px;
+  padding-top: 20px;
+  font-weight: 600;
+  font-size: 30px;
+  color: #a3a3a3;
+}
 
 .card {
   width: 200px;
@@ -89,3 +96,31 @@ body {
 @keyframes beat{
   to { transform: scale(1.4); }
 }
+
+.country {
+  max-width: 930px;
+  background: #fff;
+  display: block;
+  margin: 20px;
+  text-align: center;
+    box-shadow: 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px rgba(255, 255, 255, 1),
+    inset 0px 0px 4px rgba(255, 255, 255, 0.2),
+    inset 7px 7px 15px rgba(55, 84, 170, 0),
+    inset -7px -7px 20px rgba(255, 255, 255, 0),
+    0px 0px 4px rgba(255, 255, 255, 0);
+  padding-bottom: 20px;
+}
+
+
+
+#countriesInput {
+  margin: 5px;
+  padding: 8px;
+  width: 15rem;
+  border-radius: 5px;
+  position: relative;
+  border-color: #000;
+  display: inline-block;
+}
+
