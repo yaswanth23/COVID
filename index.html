@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143291247-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-143291247-2');
-</script>
 	<title>COVID-19</title>
 	<link rel="stylesheet" href="style.css">
     <script src="myscript.js"></script>
@@ -151,6 +142,7 @@ document
     const country = countryList.find(item => item.Country === value);
     if (country) {
       fetchCountry(country);
+      console.log(country);
     }
   });
 
@@ -182,12 +174,9 @@ function addData(chart, label, data) {
 }
 
   </script>
-  
-
-
-
   <div class="footer">
-    <!-- Data Collected from <a href="https://thevirustracker.com">thevirustracker.com</a> API. <br> -->
+    Data sources: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports">WHO</a>, <a href="">CDC</a>, <a href="">ECDC</a>, <a href="">NHC</a>, <a href="">DXY</a>, state and national government health departments.<br>
+    Downloadable database: GitHub:<a href="https://github.com/CSSEGISandData/COVID-19">here</a>.<br>
     Made by <b>yashvant</b>
   </div>
 </div>
