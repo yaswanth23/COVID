@@ -3,37 +3,182 @@
 <head>
 	<title>COVID-19</title>
 	<link rel="stylesheet" href="style.css">
-<script src="myscript.js"></script>
+    <script src="myscript.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 <body>
 <div class="header">
   <div id="title" class="title">COVID-19 STATISTICS</div>
   <div id="total" class="card">
     <div class="stats">
-      <div class="number">12345</div>
+      <div class="number">loading...</div>
       <div class="factor">Total</div>
     </div>    
   </div>
   <div id="recover" class="card">
     <div class="stats">
-      <div class="number">12345</div>
+      <div class="number">loading...</div>
       <div class="factor">Total</div>
     </div> 
   </div>
   <div id="sick" class="card">
     <div class="stats">
-      <div class="number">12345</div>
+      <div class="number">loading...</div>
       <div class="factor">Total</div>
     </div> 
   </div>
   <div id="dead" class="card">
     <div class="stats">
-      <div class="number">12345</div>
+      <div class="number">loading...</div>
       <div class="factor">Total</div>
     </div> 
   </div>
+
+
+
+    <div class="country">
+<div class="title1">COVID-19 COUNTRY STATISTICS</div>
+<input list="countries" id="countriesInput" class="header__search" placeholder="Select Country Here">
+<datalist id="countries">
+</datalist>
+<br />
+<canvas id="lineChart" />
+  </div>
+  <script type="text/javascript">
+  let canvas = document.getElementById("lineChart");
+let ctx = canvas.getContext("2d");
+let countryList = [];
+let countryData = [];
+let myLineChart;
+
+const Months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec"
+];
+
+const fetchCountries = () => {
+  fetch("https://api.covid19api.com/countries")
+    .then(res => res.json())
+    .then(res => {
+      const select = document.getElementById("countries");
+      for (const country of res) {
+        const option = document.createElement("option");
+        option.text = country.Country;
+        option.value = country.Country;
+        countryList.push(country);
+        select.appendChild(option);
+      }
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+};
+
+const fetchCountry = country => {
+  const urls = [
+    `https://api.covid19api.com/total/country/${country.Slug}/status/confirmed`,
+    `https://api.covid19api.com/total/country/${country.Slug}/status/deaths`,
+    `https://api.covid19api.com/total/country/${country.Slug}/status/recovered`
+  ];
+  const promises = urls.map(url => fetch(url).then(res => res.json()));
+  const resultSets = [];
+  Promise.all(promises).then(results => {
+    generateChart(
+      results[0].map(item => {
+        let date = new Date(item.Date);
+        return (
+          date.getDate() +
+          " " +
+          Months[date.getMonth()] +
+          " " +
+          date.getFullYear()
+        );
+      }),
+      [
+        {
+          data: results[0].map(item => item.Cases),
+          label: "Cases",
+          borderColor: "#3e95cd",
+          fill: true
+        },
+
+        {
+          data: results[1].map(item => item.Cases),
+          label: "Deaths",
+          borderColor: "red",
+          fill: true
+        },
+
+        {
+          data: results[2].map(item => item.Cases),
+          label: "Recovered",
+          borderColor: "Green",
+          fill: true
+        }
+      ]
+    );
+  });
+};
+
+fetchCountries();
+
+document
+  .getElementById("countriesInput")
+  .addEventListener("input", function(e) {
+    const value = e.target.value;
+    const country = countryList.find(item => item.Country === value);
+    if (country) {
+      fetchCountry(country);
+    }
+  });
+
+const generateChart = (xaxis, lineData) => {
+  const data = {
+    labels: xaxis,
+    datasets: lineData
+  };
+  const options = {};
+  if (myLineChart) {
+    let newCanvas = document.createElement("canvas");
+    document.getElementById("lineChart").replaceWith(newCanvas);
+    newCanvas.setAttribute("id", "lineChart");
+    canvas = document.getElementById("lineChart");
+    ctx = canvas.getContext("2d");
+  }
+  myLineChart = new Chart(ctx, {
+    type: "line",
+    data: data,
+    options: options
+  });
+};
+
+function addData(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach(dataset => {
+    dataset.data.push(data);
+  });
+}
+
+  </script>
+  
+
+
+
   <div class="footer">
-    Data Collected from <a href="https://thevirustracker.com">thevirustracker.com</a> API. <br>
+    <!-- Data Collected from <a href="https://thevirustracker.com">thevirustracker.com</a> API. <br> -->
     Made with <img class="footer-love-icon" src="https://techvenq.com/konflist/img/like.svg" /> by <b>yashvant</b>
   </div>
 </div>
